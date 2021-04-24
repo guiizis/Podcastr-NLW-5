@@ -3,28 +3,11 @@ import styles from '../styles/app.module.scss'
 
 import { Header } from '../components/header'
 import { Player } from '../components/player'
-import { PlayerContext } from '../context/playerContext'
-import { useState } from 'react'
+import { PlayerContextProvider } from '../context/playerContext'
 
 function MyApp({ Component, pageProps }) {
-  const [episodeList, setEpisodeList] = useState([])
-  const [currentEpisodeIndex, setcurrentEpisodeIndex] = useState(0)
-  const [isPlaying, setisPlaying] = useState(false)
-
-  function play(episode) {
-    setEpisodeList([episode])
-    setcurrentEpisodeIndex(0)
-    setisPlaying(true)
-  }
-
-  function togglePlay() {
-    setisPlaying(!isPlaying)
-  }
-
   return (
-    <PlayerContext.Provider
-      value={{ episodeList, currentEpisodeIndex, play, isPlaying, togglePlay }}
-    >
+    <PlayerContextProvider>
       <div className={styles.wrapper}>
         <main>
           <Header />
@@ -32,7 +15,7 @@ function MyApp({ Component, pageProps }) {
         </main>
         <Player />
       </div>
-    </PlayerContext.Provider>
+    </PlayerContextProvider>
   )
 }
 
